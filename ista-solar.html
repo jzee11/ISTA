@@ -168,9 +168,9 @@
   .tabs {
     display: none;
     flex-direction: column;
-    height: 100%;
   }
   .tabs.active { display: flex; }
+  .tabs.scrollable { overflow-y: auto; height: calc(100vh - 56px); }
 
   /* SECTION HEADER */
   .section-header {
@@ -278,6 +278,7 @@
     flex-direction: column;
     height: calc(100vh - 56px);
     overflow: hidden;
+    position: relative;
   }
 
   .chat-config {
@@ -568,7 +569,7 @@
       <div id="claude-status" class="badge">⟳ Claude</div>
     </div>
 
-    <div class="content" style="padding:0; overflow:hidden;">
+    <div class="content" style="padding:0; overflow-y:auto;">
 
       <!-- TAB: NOVÁ NABÍDKA / CHAT -->
       <div id="tab-chat" class="tabs active">
@@ -617,7 +618,7 @@
       </div>
 
       <!-- TAB: HISTORIE -->
-      <div id="tab-history" class="tabs">
+      <div id="tab-history" class="tabs scrollable">
         <div style="padding:24px;">
           <div class="section-header">
             <div>
@@ -636,7 +637,7 @@
       </div>
 
       <!-- TAB: PRODUKTY -->
-      <div id="tab-products" class="tabs">
+      <div id="tab-products" class="tabs scrollable">
         <div style="padding:24px;">
           <div class="section-header">
             <div>
@@ -669,7 +670,7 @@
       </div>
 
       <!-- TAB: SYSTÉMOVÉ ŠABLONY -->
-      <div id="tab-systems" class="tabs">
+      <div id="tab-systems" class="tabs scrollable">
         <div style="padding:24px;">
           <div class="section-header">
             <div>
@@ -683,7 +684,7 @@
       </div>
 
       <!-- TAB: NASTAVENÍ -->
-      <div id="tab-settings" class="tabs">
+      <div id="tab-settings" class="tabs scrollable">
         <div style="padding:24px; max-width:700px;">
           <div class="section-header">
             <div>
@@ -724,7 +725,7 @@
               </div>
               <div class="form-col">
                 <label class="form-label">IČO</label>
-                <input class="input" id="s-company-ico" placeholder="12345678">
+                <input class="input" id="s-company-ico" placeholder="IČO firmy">
               </div>
             </div>
             <div class="form-row">
@@ -744,8 +745,7 @@
               </div>
               <div class="form-col">
                 <label class="form-label">Web</label>
-                <input class="input" id="s-company-web" placeholder="www.ista-solar.cz">
-              </div>
+                <input class="input" id="s-company-web" placeholder="www.ista-solar.cz">              </div>
             </div>
           </div>
 
