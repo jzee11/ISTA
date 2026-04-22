@@ -871,6 +871,11 @@
 
 <script>
 // ============================================================
+// PROXY
+// ============================================================
+const PROXY_URL = 'https://ista-proxy-l9ou4nsy5-jzee11s-projects.vercel.app/api/proxy';
+
+// ============================================================
 // STATE
 // ============================================================
 let state = {
@@ -1028,7 +1033,7 @@ async function getFlowiiToken() {
   const { flowiiKey, flowiiEmail, flowiiPass } = state.settings;
   if (!flowiiKey || !flowiiEmail || !flowiiPass) return null;
   try {
-    const res = await fetch('https://api.flowii.com/token', {
+    const res = await fetch(`${PROXY_URL}?target=flowii&path=token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -1056,7 +1061,7 @@ async function syncFlowii() {
 
   try {
     // Get company ID first
-    const compRes = await fetch('https://api.flowii.com/api/Account/GetCompanyAccessList', {
+    const compRes = await fetch(`${PROXY_URL}?target=flowii&path=api/Account/GetCompanyAccessList`, {
       headers: { 'Authorization': 'Bearer ' + token, 'Api-Key': state.settings.flowiiKey }
     });
     const compData = await compRes.json();
@@ -1064,7 +1069,7 @@ async function syncFlowii() {
     if (!companyId) { sub.textContent = 'Nelze načíst ID firmy'; return; }
 
     // Get goods/products
-    const prodRes = await fetch(`https://api.flowii.com/api/Goods?companyId=${companyId}&pageSize=200`, {
+    const prodRes = await fetch(`${PROXY_URL}?target=flowii&path=api/Goods%3FcompanyId=${companyId}%26pageSize=200`, {
       headers: { 'Authorization': 'Bearer ' + token, 'Api-Key': state.settings.flowiiKey }
     });
     const prodData = await prodRes.json();
@@ -1422,13 +1427,12 @@ PRAVIDLA:
       { role: 'user', content: text }
     ];
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch(`${PROXY_URL}?target=claude&path=v1/messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': state.settings.claudeKey,
         'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
