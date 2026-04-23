@@ -1041,7 +1041,9 @@ async function getFlowiiToken() {
       },
       body: `grant_type=password&username=${encodeURIComponent(flowiiEmail)}&password=${encodeURIComponent(flowiiPass)}`
     });
-    const data = await res.json();
+    const text = await res.text();
+    console.log('Flowii token response:', text);
+    const data = JSON.parse(text);
     return data.access_token || null;
   } catch(e) {
     console.error('Flowii token error:', e);
